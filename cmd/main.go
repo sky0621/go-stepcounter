@@ -2,15 +2,14 @@ package main
 
 import (
 	"flag"
-	"go/ast"
-	"go/parser"
-	"go/token"
 	"os"
 	"path/filepath"
 
 	"regexp"
 
 	"fmt"
+
+	"go/scanner"
 
 	"github.com/Sirupsen/logrus"
 )
@@ -36,28 +35,15 @@ func Apply(path string, info os.FileInfo, err error) error {
 
 	// FIXME AST形式では要素ごとにカウントアップしてしまうため、シンプルにファイルを行リードにする
 
-	fset := token.NewFileSet()
-	f, err := parser.ParseFile(fset, path, nil, parser.AllErrors)
-	if err != nil {
-		return err
-	}
-
 	stepCount := 0
 	commentCount := 0
-	ast.Inspect(f, func(node ast.Node) bool {
-		_, ok := node.(*ast.CommentGroup)
-		if ok {
-			commentCount = commentCount + 1
-			return true
-		}
-		_, ok = node.(*ast.Comment)
-		if ok {
-			commentCount = commentCount + 1
-			return true
-		}
-		stepCount = stepCount + 1
-		return true
-	})
+
+	var s scanner.Scanner
+	s.Init(info)
+	for tok != scanner.EOF {
+		// tokを使い、何か処理を行う
+		tok = s.Scan()
+	}
 
 	fmt.Printf("[%v] step: %d, comment: %d\n", path, stepCount, commentCount)
 	return nil
