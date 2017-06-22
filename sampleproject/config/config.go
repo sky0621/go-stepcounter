@@ -32,12 +32,16 @@ type SubConfigB struct {
 
 func NewSubConfigB() *SubConfigB {
 	return &SubConfigB{
+		/* SubText */
 		SubBText: viper.GetString("cfg.subb.text"),
 	}
 }
 
 // ReadConfig ...
 func ReadConfig(configFilePath string) error {
+	/*
+	 * SetSetSet
+	 */
 	viper.SetConfigFile(configFilePath)
 	return viper.ReadInConfig()
 }
