@@ -16,6 +16,11 @@ import (
 	"github.com/Sirupsen/logrus"
 )
 
+var (
+	allStepCount    = 0
+	allCommentCount = 0
+)
+
 func main() {
 	target := flag.String("target", "../_sampleproject", "Parse Target")
 	flag.Parse()
@@ -24,6 +29,7 @@ func main() {
 	if err != nil {
 		logrus.Error(err)
 	}
+	fmt.Printf("allStep: %d, allComment: %d\n", allStepCount, allCommentCount)
 }
 
 func Apply(path string, info os.FileInfo, err error) error {
@@ -93,6 +99,8 @@ func Apply(path string, info os.FileInfo, err error) error {
 	}
 
 	fmt.Printf("[%v] step: %d, comment: %d\n", path, stepCount, commentCount)
+	allStepCount = allStepCount + stepCount
+	allCommentCount = allCommentCount + commentCount
 	return nil
 }
 
@@ -114,6 +122,14 @@ func filter(path string, info os.FileInfo) bool {
 		return false
 	}
 
+	outDirExp2, err := regexp.Compile("\\.git")
+	if err != nil {
+		return false
+	}
+	if outDirExp2.MatchString(absPath) {
+		return false
+	}
+
 	outFileExp, err := regexp.Compile(".*test.*")
 	if err != nil {
 		return false
@@ -122,7 +138,7 @@ func filter(path string, info os.FileInfo) bool {
 		return false
 	}
 
-	inFileExp, err := regexp.Compile(".*.go")
+	inFileExp, err := regexp.Compile(".*\\.go")
 	if err != nil {
 		return false
 	}
