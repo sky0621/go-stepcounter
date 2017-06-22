@@ -17,7 +17,7 @@ import (
 )
 
 func main() {
-	target := flag.String("target", "../sampleproject", "Parse Target")
+	target := flag.String("target", "../_sampleproject", "Parse Target")
 	flag.Parse()
 
 	err := filepath.Walk(*target, Apply)
