@@ -1,4 +1,0 @@
-package: github.com/sky0621/go-stepcounter
-import:
-- package: github.com/Sirupsen/logrus
-  version: ~1.0.0

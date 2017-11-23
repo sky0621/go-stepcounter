@@ -15,4 +15,5 @@
 
 glide.lock
 vendor
+Gopkg.lock
 
