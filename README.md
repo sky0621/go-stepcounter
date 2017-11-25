@@ -4,11 +4,9 @@
 
 ## パラメータ
 
-##### ・target ・・・ ステップカウントしたいgoソースを含むディレクトリフルパス
-
 ##### [実行例] cmd 配下にて下記コマンド実行
 
-<pre> go run main.go -target ..\\_sampleproject </pre>
+<pre> go run main.go ..\\_sampleproject </pre>
 
 ## TODO
  
