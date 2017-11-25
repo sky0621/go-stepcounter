@@ -2,7 +2,7 @@ package main
 
 import (
 	"bytes"
-//	"flag"
+	//	"flag"
 	"html/template"
 	"os"
 	"path/filepath"
@@ -38,12 +38,6 @@ type FileStepCounter struct {
 var result *StepCounter = &StepCounter{FileStepCounters: []*FileStepCounter{}}
 
 func main() {
-//	target := flag.String("target", "_sampleproject", "Parse Target")
-//	flag.Parse()
-//	fmt.Println(os.Args[1])
-
-//	err := filepath.Walk(*target, Apply)
-
 	target := "_sampleproject"
 	if len(os.Args) > 1 {
 		target = os.Args[1]
