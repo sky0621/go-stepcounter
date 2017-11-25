@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	//	"flag"
 	"html/template"
 	"os"
 	"path/filepath"
@@ -15,7 +14,7 @@ import (
 
 	"strings"
 
-	"github.com/Sirupsen/logrus"
+	"go.uber.org/zap"
 )
 
 var (
@@ -38,22 +37,40 @@ type FileStepCounter struct {
 var result *StepCounter = &StepCounter{FileStepCounters: []*FileStepCounter{}}
 
 func main() {
-	target := "_sampleproject"
-	if len(os.Args) > 1 {
-		target = os.Args[1]
-	}
-	err := filepath.Walk(target, Apply)
+	logger, err := zap.NewProduction()
 	if err != nil {
-		logrus.Error(err)
+		panic(err)
 	}
+	defer logger.Sync()
+
+	if len(os.Args) < 2 {
+		logger.Error("引数[ターゲットディレクトリのパス]が必要です")
+		os.Exit(-1)
+	}
+	target := os.Args[1]
+
+	err = filepath.Walk(target, Apply)
+	if err != nil {
+		logger.Error("", zap.String("error", err.Error()))
+		os.Exit(-1)
+	}
+
 	result.TotalStep = allStepCount
 	result.TotalComment = allCommentCount
 
-	tmpl := template.Must(template.ParseFiles("tmpl.csv"))
+	tmplPath := "tmpl/tmpl.csv"
+	a, err := Asset(tmplPath)
+	if err != nil {
+		logger.Error("", zap.String("error", err.Error()))
+		os.Exit(-1)
+	}
+
+	tmpl := template.Must(template.New(tmplPath).Parse(string(a)))
 	buf := &bytes.Buffer{}
 	err = tmpl.Execute(buf, result)
 	if err != nil {
-		panic(err)
+		logger.Error("", zap.String("error", err.Error()))
+		os.Exit(-1)
 	}
 
 	fmt.Println(buf.String())
