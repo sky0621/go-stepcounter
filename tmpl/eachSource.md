@@ -2,11 +2,11 @@
 
 #### ※ツール（ https://github.com/sky0621/go-stepcounter ）による自動生成
 
-Total
-
-| TotalStep | {{.TotalStep}} |
-| TotalComment | {{.TotalComment}} |
+| TotalStep | TotalComment |
+| :--- | :--- |
+| {{.TotalStep}} | {{.TotalComment}} |
 
 | Path | Step | Comment |
+| :--- | :--- | :--- |
 {{range .FileStepCounters}}| {{.FilePath}} | {{.Step}} | {{.Comment}} |
 {{end}}
