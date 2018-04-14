@@ -15,7 +15,6 @@
 
 glide.lock
 vendor
-Gopkg.lock
 
 .idea/
 dist/

@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"os"
 	"path/filepath"
+	"time"
 
 	"regexp"
 
@@ -23,6 +24,7 @@ var (
 )
 
 type StepCounter struct {
+	Datetime         string
 	TotalStep        int64
 	TotalComment     int64
 	FileStepCounters []*FileStepCounter
@@ -55,17 +57,13 @@ func main() {
 		os.Exit(-1)
 	}
 
+	result.Datetime = time.Now().Format("2006-01-02 15:04")
 	result.TotalStep = allStepCount
 	result.TotalComment = allCommentCount
 
-	tmplPath := "tmpl/tmpl.csv"
-	a, err := Asset(tmplPath)
-	if err != nil {
-		logger.Error("", zap.String("error", err.Error()))
-		os.Exit(-1)
-	}
+	afile := Assets.Files["/tmpl/eachSource.md"]
 
-	tmpl := template.Must(template.New(tmplPath).Parse(string(a)))
+	tmpl := template.Must(template.New("md").Parse(string(afile.Data)))
 	buf := &bytes.Buffer{}
 	err = tmpl.Execute(buf, result)
 	if err != nil {
