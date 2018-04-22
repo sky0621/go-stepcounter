@@ -6,7 +6,7 @@
 
 ##### [実行例] cmd 配下にて下記コマンド実行
 
-<pre> go run main.go template.go ..\\_sampleproject </pre>
+<pre> go run main.go template.go ./_sampleproject </pre>
 
 ## TODO
  
