@@ -69,8 +69,22 @@ Server:
 
 ## docker build
 
-sudo docker build -t go-stepcounter:0.1 .
+sudo docker build -t sky0621dhub/go-stepcounter:0.1 .
 
 ## docker run
 
-sudo docker run go-stepcounter:0.1 _sampleproject/
+sudo docker run sky0621dhub/go-stepcounter:0.1 _sampleproject/
+
+## docker login -> push
+
+sudo docker login
+
+sudo docker push sky0621dhub/go-stepcounter
+
+## docker hub
+
+https://hub.docker.com/r/sky0621dhub/go-stepcounter/
+
+## docker pull
+
+sudo docker pull sky0621dhub/go-stepcounter:0.1
