@@ -43,3 +43,34 @@ git config --global github.token "....."
 export GITHUB_API=http://github.company.com/api/v3/
 
 ghr v0.1.0 dist/
+
+## docker
+
+sudo docker version
+Client:
+ Version:	18.03.0-ce
+ API version:	1.37
+ Go version:	go1.9.4
+ Git commit:	0520e24
+ Built:	Wed Mar 21 23:10:09 2018
+ OS/Arch:	linux/amd64
+ Experimental:	false
+ Orchestrator:	swarm
+
+Server:
+ Engine:
+  Version:	18.03.0-ce
+  API version:	1.37 (minimum version 1.12)
+  Go version:	go1.9.4
+  Git commit:	0520e24
+  Built:	Wed Mar 21 23:08:36 2018
+  OS/Arch:	linux/amd64
+  Experimental:	false
+
+## docker build
+
+sudo docker build -t go-stepcounter:0.1 .
+
+## docker run
+
+sudo docker run go-stepcounter:0.1 _sampleproject/

@@ -19,10 +19,11 @@ import (
 )
 
 var (
-	allStepCount    int64 = 0
-	allCommentCount int64 = 0
+	allStepCount    int64
+	allCommentCount int64
 )
 
+// StepCounter ...
 type StepCounter struct {
 	Datetime         string
 	TotalStep        int64
@@ -30,13 +31,14 @@ type StepCounter struct {
 	FileStepCounters []*FileStepCounter
 }
 
+// FileStepCounter ...
 type FileStepCounter struct {
 	FilePath string
 	Step     int64
 	Comment  int64
 }
 
-var result *StepCounter = &StepCounter{FileStepCounters: []*FileStepCounter{}}
+var result = &StepCounter{FileStepCounters: []*FileStepCounter{}}
 
 func main() {
 	logger, err := zap.NewProduction()
@@ -74,6 +76,7 @@ func main() {
 	fmt.Println(buf.String())
 }
 
+// Apply ...
 func Apply(path string, info os.FileInfo, err error) error {
 	if err != nil {
 		return err
