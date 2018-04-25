@@ -9,6 +9,6 @@ RUN CGO_ENABLED=0 go build -o gostepcounter github.com/sky0621/go-stepcounter
 
 # -----------------------------------------------------------------------------
 # step 2. build
-FROM busybox
+FROM scratch
 COPY --from=builder /go/src/github.com/sky0621/go-stepcounter/ .
 ENTRYPOINT [ "./gostepcounter" ]
