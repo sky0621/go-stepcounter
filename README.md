@@ -88,3 +88,8 @@ https://hub.docker.com/r/sky0621dhub/go-stepcounter/
 ## docker pull
 
 sudo docker pull sky0621dhub/go-stepcounter:0.1
+
+## docker tag
+
+sudo docker tag go-stepcounter asia.gcr.io/{project-name}/go-stepcounter
+
