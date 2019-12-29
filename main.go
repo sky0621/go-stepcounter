@@ -64,6 +64,11 @@ func main() {
 	result.TotalComment = allCommentCount
 
 	afile := Assets.Files["/tmpl/eachSource.md"]
+	defer func() {
+		if afile != nil {
+			afile.Close()
+		}
+	}()
 
 	tmpl := template.Must(template.New("md").Parse(string(afile.Data)))
 	buf := &bytes.Buffer{}
