@@ -1,5 +1,10 @@
 # go-stepcounter
 
+## TODO
+ 
+- 出力内容をテンプレート化
+- 外部から使いやすいように出力方法を見直す
+
 ## go module
 
 ```bash
